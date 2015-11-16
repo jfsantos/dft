@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["backward","Perform the backward transform."],["forward","Perform the forward transform."],["inverse","Perform the inverse transform."]]});

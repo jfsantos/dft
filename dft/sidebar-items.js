@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["complex","Transformation of complex data."],["real","Transformation of real data."]],"type":[["c64","A complex number with 64-bit parts."]]});
