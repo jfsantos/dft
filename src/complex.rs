@@ -25,9 +25,11 @@ fn calculate(data: &mut [c64], n: usize, factors: &[c64]) {
         for mut i in 0..step {
             while i < n {
                 let j = i + step;
-                let product = factors[k] * data[j];
-                data[j] = data[i] - product;
-                data[i] = data[i] + product;
+                unsafe {
+                    let product = *factors.get_unchecked(k) * *data.get_unchecked(j);
+                    *data.get_unchecked_mut(j) = *data.get_unchecked(i) - product;
+                    *data.get_unchecked_mut(i) = *data.get_unchecked(i) + product;
+                }
                 i += jump;
             }
             k += 1;
@@ -38,7 +40,7 @@ fn calculate(data: &mut [c64], n: usize, factors: &[c64]) {
 
 fn rearrange(data: &mut [c64], n: usize) {
     let mut j = 0;
-    for i in 0..n {
+    for i in 0..data.len() {
         if j > i {
             data.swap(i, j);
         }
@@ -53,7 +55,7 @@ fn rearrange(data: &mut [c64], n: usize) {
 
 fn scale(data: &mut [c64], n: usize) {
     let factor = 1.0 / n as f64;
-    for i in 0..n {
-        data[i] = data[i].scale(factor);
+    for x in data {
+        x.scale(factor);
     }
 }
